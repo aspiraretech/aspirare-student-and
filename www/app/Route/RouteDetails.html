@@ -1,0 +1,13 @@
+<ion-view title="{{route.Name}}">
+    <ion-content>
+        <div id="map"></div>
+    </ion-content>
+    <button class="button button-float button-custom" ng-click="callStaff(route.PhoneNumber)">
+        <i class="icon ion-ios-telephone"></i>
+    </button>
+    <div class="bar bar-footer bar-custom text-center" style="padding:0px 5px;">
+        <span style="font-size:14px;margin:auto;">
+            {{route.AreasCovered}}
+        </span>
+    </div>
+</ion-view>

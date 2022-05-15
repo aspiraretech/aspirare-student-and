@@ -1,0 +1,71 @@
+<ion-view title="{{skill.Name}}">
+    <ion-content class="upgradeSkillPage">
+        <ion-slides slider="slider" options="options" ion-slides-tabs slide-tabs-scrollable="true" show-pager="false" on-slide-changed="slideChanged(index)">
+            <ion-slide-page ion-slide-tab-label="Questions" class="halfPageTabs">
+                <div class="list" ng-if="testQuestions.length > 0">
+                    <a class="item item-icon-right" href ng-repeat="question in testQuestions" ng-click="questionSelected(question)">
+                        <h2 style="white-space: normal;" ng-bind-html="question.QuestionName"></h2>
+                        <i class="icon ion-chevron-right custom"></i>
+                    </a>
+                </div>
+                <div class="row no-padding" ng-if="testQuestions.length == 0">
+                    <img class="empty_list_img" src="app/images/tests.svg" alt="no image selected" />
+                    <div class="col no-padding text-center empty_list_text">
+                        Nothing has been shared yet!
+                    </div>
+                </div>
+            </ion-slide-page>
+            <ion-slide-page ion-slide-tab-label="Quiz" class="halfPageTabs">
+                <div class="card" ng-repeat="test in smartTests" ng-if="smartTests.length >0">
+                    <div class="item item-divider" style="padding-left:10px; padding-right:10px;">
+                        <div class="row no-padding">
+                            <div class="col no-padding">
+                                {{test.Name}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item item-text-wrap" style="padding:0px;">
+                        <div class="row">
+                            <div class="col text-center">
+                                <p style="font-weight:bold;">Questions</p>
+                                <p>{{test.Metrics.QuestionCount}}</p>
+                            </div>
+                            <div class="col text-center">
+                                <p style="font-weight:bold;">Correct</p>
+                                <p>
+                                    <span ng-if="test.IsComplete">{{test.Metrics.CorrectAnswers}}</span>
+                                    <span ng-if="!test.IsComplete">N/A</span>
+                                </p>
+                            </div>
+                            <div class="col text-center">
+                                <p style="font-weight:bold;">Wrong</p>
+                                <p>
+                                    <span ng-if="test.IsComplete">{{test.Metrics.QuestionCount - test.Metrics.CorrectAnswers}}</span>
+                                    <span ng-if="!test.IsComplete">N/A</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" ng-if="!test.IsComplete">
+                                <button class="button button-custom loginButton" ng-click="testSelected(test, 0)">
+                                    Take Quiz
+                                </button>
+                            </div>
+                            <div class="col" ng-if="test.IsComplete">
+                                <button class="button button-balanced loginButton" ng-click="viewResult(test, 1)">
+                                    View Result
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-padding" ng-if="smartTests.length == 0">
+                    <img class="empty_list_img" src="app/images/tests.svg" alt="no image selected" />
+                    <div class="col no-padding text-center empty_list_text">
+                        Nothing has been shared yet!
+                    </div>
+                </div>
+            </ion-slide-page>
+        </ion-slides>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "260260971315",
+    "project_id": "se-student-and",
+    "storage_bucket": "se-student-and.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260260971315:android:ef41d47ffe5a1f2be5b446",
+        "android_client_info": {
+          "package_name": "com.equinoxx.spring"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "260260971315-ubadj0of69o14fqqlesi3fla21m3rl8h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAlPUlnWnfG4MkxQf8xLSmsrYUWORCU_U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "260260971315-ubadj0of69o14fqqlesi3fla21m3rl8h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

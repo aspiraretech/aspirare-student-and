@@ -1,0 +1,71 @@
+<ion-modal-view>
+    <div class="bar bar-header bar-custom">
+        <h1 class="title">Select filters</h1>
+        <button class="button button-clear icon ion-close-round smallButtonIcon" ng-click="closeFilterModal()"></button>
+    </div>
+    <ion-content class="has-header">
+        <div style="height: 100%">
+            <div class="row no-padding" style="height: 100%">
+                <div class="col col-25 no-padding" style="border-right:1px solid #e2e2e2">
+                    <div class="list">
+                        <div class="item searchword" ng-class="{'searchword-active': isActive(1)}" ng-click="searchwordItemSelected(1)">
+                            Skills
+                        </div>
+                        <div class="item searchword" ng-class="{'searchword-active': isActive(2)}" ng-click="searchwordItemSelected(2)">
+                            Standard
+                        </div>
+                        <div class="item searchword" ng-class="{'searchword-active': isActive(3)}" ng-click="searchwordItemSelected(3)">
+                            Difficulty
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-75 no-padding">
+                    <div ng-if="selectedItem == 1">
+                        <ion-checkbox ng-model="tag.IsSelected" class="checkbox-custom searchword-checkbox" ng-repeat="tag in tagsForFilter | filter:search" ng-if="tag.DisplayType == 2">
+                            <h2 style="text-transform:capitalize">{{tag.Name}}</h2>
+                        </ion-checkbox>
+                        <div class="row" ng-if="tags.length == 0">
+                            <div class="col text-center">
+                                There are no tags!
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="selectedItem == 2">
+                        <ion-checkbox ng-model="tag.IsSelected" class="checkbox-custom searchword-checkbox" ng-repeat="tag in tagsForFilter | filter:search" ng-if="tag.DisplayType == 0">
+                            <h2 style="text-transform:capitalize">{{tag.Name}}</h2>
+                        </ion-checkbox>
+                        <div class="row" ng-if="tags.length == 0">
+                            <div class="col text-center">
+                                There are no tags!
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="selectedItem == 3">
+                        <ion-checkbox ng-model="tag.IsSelected" class="checkbox-custom searchword-checkbox" ng-repeat="tag in tagsForFilter | filter:search" ng-if="tag.DisplayType == 1">
+                            <h2 style="text-transform:capitalize">{{tag.Name}}</h2>
+                        </ion-checkbox>
+                        <div class="row" ng-if="tags.length == 0">
+                            <div class="col text-center">
+                                There are no tags!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar-custom button-footer-bar custom-footer" style="padding:0;border:none;" ng-if="tags.length > 0">
+        <div class="row no-padding">
+            <div class="col no-padding">
+                <button style="border-radius:0px;" class="button button-custom loginButton" ng-click="reset()">
+                    <span style="font-size:16px;">Reset</span>
+                </button>
+            </div>
+            <div class="col no-padding">
+                <button style="border-radius:0px;" class="button button-custom loginButton" ng-click="filtersSelected()">
+                    <span style="font-size:16px;">Apply</span>
+                </button>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-modal-view>

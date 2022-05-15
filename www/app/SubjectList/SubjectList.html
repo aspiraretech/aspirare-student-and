@@ -1,0 +1,10 @@
+<ion-view title="Choose a {{keywords.SubjectKeyword}}">
+    <ion-content>
+        <div class="list">
+            <a class="item item-icon-right" href ng-repeat="subject in subjects" ng-click="subjectSelected(subject)">
+                <h2>{{subject.Nickname}}</h2>
+                <i class="icon ion-chevron-right custom"></i>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

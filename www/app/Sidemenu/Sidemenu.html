@@ -1,0 +1,59 @@
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content edge-drag-threshold="true">
+        <ion-nav-bar class="bar-custom">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left">
+        <ion-content class="sidemenu-content">
+            <div class="row sidemenu-header logo-image" ng-style="{'background-image':'url(' + loggedInUser.LogoImageURL + ')'}">
+            </div>
+            <ion-list>
+                <ion-item class="item-icon-left" menu-close href="#/dashboard">
+                    <i class="icon custom ion-pie-graph"></i> Dashboard
+                </ion-item>
+                <!-- <ion-item class="item-icon-left" menu-close href="#/subjectList/2" ng-if="loggedInUser.PackageCode == 'EXTENDED' || loggedInUser.PackageCode == 'SMART'">
+                    <i class="icon custom ion-clipboard"></i> Quiz
+                </ion-item> -->
+                <!-- <ion-item class="item-icon-left" menu-close href="#/subjectList/3" ng-if="loggedInUser.PackageCode == 'SMART'">
+                    <i class="icon custom ion-easel"></i> Learn
+                </ion-item> -->
+                <ion-item class="item-icon-left" menu-close href="#/assignments" ng-if="loggedInUser.PackageCode != 'EXTENDED' && loggedInUser.IsB2C == 'false'">
+                    <i class="icon custom ion-android-download"></i> Shared with Class
+                </ion-item>
+                <ion-item class="item-icon-left" menu-close href ng-click="launchMeeting()" ng-if="loggedInUser.MeetingURL != null || loggedInUser.MeetingURL != 'null' || loggedInUser.MeetingURL != ''">
+                    <i class="icon custom ion-laptop"></i> Online Class
+                </ion-item>
+                <ion-item class="item-icon-left" menu-close href ng-if="loggedInUser.PackageCode == 'EXTENDED' && loggedInUser.IsB2C == 'false'" ng-click="sayAssessments()">
+                    <i class=" icon custom ion-clipboard "></i> Assessments
+                </ion-item>
+                <ion-item class="item-icon-left " menu-close href="#/events">
+                    <i class="icon custom ion-speakerphone "></i> News & Events
+                </ion-item>
+                <ion-item class="item-icon-left " menu-close href="#/calendar" ng-if="loggedInUser.IsB2C == 'false'">
+                    <i class="icon custom ion-android-calendar "></i> Calendar
+                </ion-item>
+                <ion-item class="item-icon-left " menu-close href="#/notifications">
+                    <i class="icon custom ion-android-notifications "></i> Notifications
+                </ion-item>
+                <ion-item class="item-icon-left " menu-close href="#/studentDetails">
+                    <i class="icon custom ion-android-person "></i> Profile
+                </ion-item>
+                <ion-item class="item-icon-left " menu-close href="#/routeDetails" ng-if="loggedInUser.PackageCode !='EXTENDED' && loggedInUser.RouteId !=null && loggedInUser.IsB2C == 'false'">
+                    <i class="icon custom ion-android-bus "></i> Bus Details
+                </ion-item>
+                <!-- <ion-item class="item-icon-left " menu-close href="#/personalMessage ">
+                    <i class="icon custom ion-paper-airplane "></i> Personal Message
+                </ion-item> -->
+                <ion-item class="item-icon-left " menu-close href ng-click="logout() ">
+                    <i class="icon custom ion-power "></i> Logout
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

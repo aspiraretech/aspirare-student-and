@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <link rel="manifest" href="manifest.json">
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="lib/ionic-toast/src/ionic-toast.css" rel="stylesheet">
+    <link href="lib/ion-gallery/dist/ion-gallery.css" rel="stylesheet">
+    <link href="lib/highcharts-ng/dist/highcharts-ng.css" rel="stylesheet">
+    <link href="lib/ion-floating-menu/dist/ion-floating-menu.css" rel="stylesheet" type="text/css" />
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+    <link href="app/styles/style.css" rel="stylesheet">
+    <link href="app/styles/theme.css" rel="stylesheet">
+    <link href="app/styles/tabSlideBox.css" rel="stylesheet">
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
+    <script src="lib/angular-svg-round-progressbar/build/roundProgress.min.js"></script>
+    <script src="lib/ionic-toast/dist/ionic-toast.bundle.min.js"></script>
+    <script src="lib/moment/min/moment.min.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="lib/ion-gallery/dist/ion-gallery.min.js"></script>
+    <script src="lib/humanize-duration/humanize-duration.js"></script>
+    <script src="lib/angular-timer/dist/angular-timer.min.js"></script>
+    <script src="lib/ion-floating-menu/dist/ion-floating-menu.js" type="text/javascript"></script>
+    <script src="lib/highcharts/highcharts.js"></script>
+    <script src="lib/highcharts/modules/data.js"></script>
+    <script src="lib/highcharts/modules/drilldown.js"></script>
+    <script src="lib/highcharts-ng/dist/highcharts-ng.js"></script>
+    <script src="lib/ionic-rating/ionic-rating.min.js"></script>
+    <script src="lib/lodash/dist/lodash.min.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+    <!-- your app's js -->
+    <script src="app/app.js"></script>
+    <!-- controllers -->
+    <script type="text/javascript" src="app/Login/LoginController.js"></script>
+    <script type="text/javascript" src="app/Sidemenu/SidemenuController.js"></script>
+    <script type="text/javascript" src="app/Dashboard/DashboardController.js"></script>
+    <script type="text/javascript" src="app/ChangePassword/ChangePasswordController.js"></script>
+    <script type="text/javascript" src="app/SubjectList/SubjectListController.js"></script>
+    <script type="text/javascript" src="app/SubjectStatistics/StudentStatistics/StudentStatisticsController.js"></script>
+    <script type="text/javascript" src="app/SubjectStatistics/StudentAttendance/StudentAttendanceController.js"></script>
+    <script type="text/javascript" src="app/Events/EventList/EventListController.js"></script>
+    <script type="text/javascript" src="app/PersonalMessage/PersonalMessageController.js"></script>
+    <script type="text/javascript" src="app/Events/EventDetails/EventDetailsController.js"></script>
+    <script type="text/javascript" src="app/Assignments/AssignmentList/AssignmentsController.js"></script>
+    <script type="text/javascript" src="app/Assignments/AssignmentDetails/AssignmentDetailsController.js"></script>
+    <script type="text/javascript" src="app/Notifications/NotificationList/NotificationsController.js"></script>
+    <script type="text/javascript" src="app/Notifications/NotificationDetails/NotificationDetailsController.js"></script>
+    <script type="text/javascript" src="app/SmartTest/SmartTestController.js"></script>
+    <script type="text/javascript" src="app/Register/RegisterController.js"></script>
+    <script type="text/javascript" src="app/CalendarList/CalendarListController.js"></script>
+    <script type="text/javascript" src="app/StudentDetails/StudentDetailsController.js"></script>
+    <script type="text/javascript" src="app/Route/RouteDetailsController.js"></script>
+    <script type="text/javascript" src="app/SmartTestList/SmartTestListController.js"></script>
+    <script type="text/javascript" src="app/SmartLearning/SmartLearningController.js"></script>
+    <script type="text/javascript" src="app/LessonPlan/LessonPlanController.js"></script>
+    <script type="text/javascript" src="app/TopicDetails/TopicDetailsController.js"></script>
+    <script type="text/javascript" src="app/LearningReport/LearningReportController.js"></script>
+    <script type="text/javascript" src="app/UpgradeSkills/UpgradeSkillsController.js"></script>
+    <script type="text/javascript" src="app/AnalyseSkills/AnalyseSkillsController.js"></script>
+    <script type="text/javascript" src="app/SkillsList/SkillsListController.js"></script>
+    <script type="text/javascript" src="app/WatchVideo/VideoController.js"></script>
+    <!-- factories -->
+    <script type="text/javascript" src="app/Login/LoginFactory.js"></script>
+    <script type="text/javascript" src="app/Dashboard/DashboardFactory.js"></script>
+    <script type="text/javascript" src="app/ChangePassword/ChangePasswordFactory.js"></script>
+    <script type="text/javascript" src="app/SubjectStatistics/SubjectStatisticsFactory.js"></script>
+    <script type="text/javascript" src="app/Events/EventsFactory.js"></script>
+    <script type="text/javascript" src="app/PersonalMessage/PersonalMessageFactory.js"></script>
+    <script type="text/javascript" src="app/Assignments/AssignmentFactory.js"></script>
+    <script type="text/javascript" src="app/Notifications/NotificationsFactory.js"></script>
+    <script type="text/javascript" src="app/SmartTest/SmartTestFactory.js"></script>
+    <script type="text/javascript" src="app/Register/RegisterFactory.js"></script>
+    <script type="text/javascript" src="app/CalendarList/CalendarFactory.js"></script>
+    <script type="text/javascript" src="app/StudentDetails/StudentDetailsFactory.js"></script>
+    <script type="text/javascript" src="app/Route/RoutesFactory.js"></script>
+    <script type="text/javascript" src="app/SmartTestList/SmartTestListFactory.js"></script>
+    <script type="text/javascript" src="app/SmartLearning/SmartLearningFactory.js"></script>
+    <script type="text/javascript" src="app/LessonPlan/LessonPlanFactory.js"></script>
+    <script type="text/javascript" src="app/TopicDetails/TopicDetailsFactory.js"></script>
+    <script type="text/javascript" src="app/LearningReport/LearningReportFactory.js"></script>
+    <script type="text/javascript" src="app/UpgradeSkills/UpgradeSkillsFactory.js"></script>
+    <!-- directives -->
+    <script type="text/javascript" src="app/Directives/StarRatingDirective.js"></script>
+    <script type="text/javascript" src="app/Directives/tabSlideBox.js"></script>
+    <script type="text/javascript" src="app/Directives/YoutubeIframeAPI.js"></script>
+    <script type="text/javascript" src="app/Directives/HtmlBindCompileDirective.js"></script>
+    <!-- maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8wgGbV1jY3uMAhKoz2_02Zg2oAIhJtxQ&sensor=true"></script>
+</head>
+
+<body ng-app="smartStudentApp">
+    <ion-pane>
+        <ion-nav-view></ion-nav-view>
+    </ion-pane>
+</body>
+
+</html>

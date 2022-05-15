@@ -1,0 +1,41 @@
+<ion-modal-view>
+    <div class="bar bar-header bar-custom">
+        <h1 class="title">Rate your understanding</h1>
+        <button class="button button-clear icon ion-close-round smallButtonIcon" ng-click="closeRatingModal()"></button>
+    </div>
+    <ion-content class="has-header">
+        <div class="row" ng-if="chapters.length == 0">
+            <div class="col text-center">
+                No topics were taught today!
+            </div>
+        </div>
+        <div class="card" ng-repeat="chapter in chapters" style="margin:0;" ng-if="chapters.length > 0">
+            <div class="item item-divider">
+                <div class="row no-padding">
+                    <div class="col no-padding text-center">
+                        {{chapter.Name}}
+                    </div>
+                </div>
+            </div>
+            <div class="item item-text-wrap" style="padding:0px;">
+                <div class="list todaysTopics">
+                    <div class="item text-center" ng-repeat="topic in chapter.Topics" style="padding:10px">
+                        <div>{{topic.Name}}</div>
+                        <div class="rating">
+                            <rating ng-model="topic.Rating" max="rating.max" ng-click="topicRated($parent.$index, topic)"></rating>
+                        </div>
+                        <div class="row no-padding">
+                            <div class="col text-center no-padding">
+                                <small ng-if="topic.Rating == 1">Did not understand.</small>
+                                <small ng-if="topic.Rating == 2">Somewhat understood.</small>
+                                <small ng-if="topic.Rating == 3">Partially understood.</small>
+                                <small ng-if="topic.Rating == 4">Understood most of it.</small>
+                                <small ng-if="topic.Rating == 5">Completely understood.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

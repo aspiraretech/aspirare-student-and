@@ -1,0 +1,170 @@
+<ion-view title="{{loggedInUser.Name}}">
+    <ion-nav-buttons side="secondary">
+        <!-- <a class="button button-icon ion-android-notifications not-btn" href="#/notifications"></a> -->
+        <button class="button button-icon ion-android-arrow-dropdown" ng-if="students.length > 1" ng-click="openPopover($event)"></button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-slides slider="slider" options="options" ion-slides-tabs slide-tabs-scrollable="true" show-pager="false" on-slide-changed="slideChanged(index)">
+            <ion-slide-page ion-slide-tab-label="Dashboard" class="loginPageTabs" ng-if="loggedInUser.PackageCode == 'LM'">
+                <div class="row">
+                    <div class="col no-padding">
+                        <div class="eventBlock" ng-repeat="item in eventsAndAssignments" ng-if="item.Images.length > 0">
+                            <h4 style="margin-top:0px">{{item.Name}}
+                                <div style="font-size:14px; color:#4a79c9;" class="pull-right" ng-click="itemSelected(item)">More</div>
+                            </h4>
+                            <div class="gallery-box">
+                                <div class="gallery-item" ng-repeat="image in item.Images">
+                                    <img ng-src="{{image}}" alt="No image detected" style="width:100%;" ng-click="goToSlide($index, item)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-padding" ng-if="eventsAndAssignments.length == 0">
+                    <img class="empty_list_img" src="app/images/dashboard.svg" alt="no image selected" />
+                    <div class="col no-padding text-center empty_list_text">
+                        Nothing has been shared yet!
+                    </div>
+                </div>
+            </ion-slide-page>
+            <ion-slide-page ion-slide-tab-label="Attendance" class="loginPageTabs" ng-if="loggedInUser.PackageCode == 'LM'">
+                <ion-content>
+                    <div class="card" ng-repeat="subject in subjects">
+                        <div class="item item-divider" style="padding-left:10px; padding-right:10px;">
+                            <div class="row no-padding">
+                                <div class="col no-padding">
+                                    {{subject.Nickname}}
+                                </div>
+                                <div class="col no-padding" ng-if="subject.AttendanceStatistics.TotalClasses > 0">
+                                    <i class="icon ion-android-calendar pull-right custom" ng-click="openAttendanceModal(subject)" style="padding-left: 10px;font-size: 21px;"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item item-text-wrap" style="padding:0px;">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <b>Total</b>
+                                </div>
+                                <div class="col text-center">
+                                    <b>Attended</b>
+                                </div>
+                                <div class="col text-center">
+                                    <b>Percentage</b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    {{subject.AttendanceStatistics.TotalClasses}}
+                                </div>
+                                <div class="col text-center">
+                                    {{subject.AttendanceStatistics.TotalPresent}}
+                                </div>
+                                <div class="col text-center">
+                                    <span ng-class="{'google-green':(subject.AttendanceStatistics.TotalPresent / subject.AttendanceStatistics.TotalClasses)>=0.75, 'google-yellow' :((subject.AttendanceStatistics.TotalPresent / subject.AttendanceStatistics.TotalClasses)<0.75 && (subject.AttendanceStatistics.TotalPresent / subject.AttendanceStatistics.TotalClasses)>=0.5), 'google-red': (subject.AttendanceStatistics.TotalPresent / subject.AttendanceStatistics.TotalClasses)<0.5}">
+                                        {{(subject.AttendanceStatistics.TotalPresent / subject.AttendanceStatistics.TotalClasses) * 100 | number: 1}}%
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-slide-page>
+            <ion-slide-page ng-if="loggedInUser.PackageCode != 'LM'" ion-slide-tab-label="{{subject.Nickname}}" class="loginPageTabs" ng-repeat="subject in subjects">
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="row no-padding">
+                            <div class="col no-padding">
+                                <h4 style="margin-top: 5px; margin-bottom:5px;" ng-if="loggedInUser.PackageCode == 'BASIC'">Performance</h4>
+                                <h4 style="margin-top: 5px; margin-bottom:5px;" ng-if="loggedInUser.PackageCode == 'SMART'">Overall Performance</h4>
+                            </div>
+                        </div>
+                        <div ng-show="loggedInUser.PackageCode != 'LM'">
+                            <div ng-if="loggedInUser.PackageCode != 'LM'" class="current" ng-style="{'color':graph.color}" style="top: 83px; bottom: auto; font-size: 20px;">{{average | number: 1}}%</div>
+                            <round-progress ng-if="loggedInUser.PackageCode != 'LM'" max="100" current="average" color="{{graph.color}}" bgcolor="#eaeaea" radius="75" stroke="25" semi="false" rounded="false" clockwise="true" responsive="false" duration="1000" animation="easeInOutCirc"
+                                animation-delay="2">
+                            </round-progress>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="(loggedInUser.PackageCode == 'SMART' && currentSubject.VisibleOnDashboard == '1')" style="margin-top:10px;">
+                    <div class="col">
+                        <div class="text-center" ng-click="subjectSelected(currentSubject)">
+                            <img ng-src="app/images/lecture.svg" alt="" style="max-width: 55px;">
+                            <div style="font-size: 13px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                                E-Learning
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" ng-hide="tests.length == 0">
+                    <div class="item item-divider" style="padding-left:10px; padding-right:10px;">
+                        <div class="row no-padding">
+                            <div class="col no-padding">
+                                Scorecard
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item item-text-wrap" style="padding:0px;">
+                        <div class="list">
+                            <div class="item" ng-repeat="test in tests | orderBy: '-CreatedAt'" style="padding:0px;">
+                                <div class="row">
+                                    <div class="col col-80" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                        {{test.Name}}
+                                    </div>
+                                    <div class="col col-20 text-center" ng-if="test.Marks != 'Ab'">
+                                        <span class="item-note scorecard-note" ng-class="{'google-green':(test.Marks/test.MaxMarks)>=0.75, 'google-yellow' :((test.Marks/test.MaxMarks)<0.75 && (test.Marks/test.MaxMarks)>=0.5), 'google-red': (test.Marks/test.MaxMarks)<0.5}">
+                                            {{test.Marks | number: 1}}<span>/</span>{{test.MaxMarks | number: 1}}
+                                        </span>
+                                    </div>
+                                    <div class="col col-20 text-center" ng-if="test.Marks == 'Ab'">
+                                        <span class="item-note scorecard-note google-red">
+                                            {{test.Marks}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" ng-if="loggedInUser.PackageCode != 'EXTENDED' && loggedInUser.PackageCode != 'LM' && attendanceStatistics.TotalClasses > 0" style="margin-top:10px;">
+                    <div class="item item-divider" style="padding-left:10px; padding-right:10px;">
+                        <div class="row no-padding">
+                            <div class="col no-padding">
+                                Attendance
+                            </div>
+                            <div class="col no-padding" ng-if="attendanceStatistics.TotalClasses > 0">
+                                <i class="icon ion-android-calendar pull-right custom" ng-click="openAttendanceModal(currentSubject)" style="padding-left: 10px;font-size: 21px;"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item item-text-wrap" style="padding:0px;">
+                        <div class="row">
+                            <div class="col text-center">
+                                <b>Total</b>
+                            </div>
+                            <div class="col text-center">
+                                <b>Attended</b>
+                            </div>
+                            <div class="col text-center">
+                                <b>Percentage</b>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                {{attendanceStatistics.TotalClasses}}
+                            </div>
+                            <div class="col text-center">
+                                {{attendanceStatistics.TotalPresent}}
+                            </div>
+                            <div class="col text-center">
+                                <span ng-class="{'google-green':(attendanceStatistics.TotalPresent / attendanceStatistics.TotalClasses)>=0.75, 'google-yellow' :((attendanceStatistics.TotalPresent / attendanceStatistics.TotalClasses)<0.75 && (attendanceStatistics.TotalPresent / attendanceStatistics.TotalClasses)>=0.5), 'google-red': (attendanceStatistics.TotalPresent / attendanceStatistics.TotalClasses)<0.5}">
+                                    {{(attendanceStatistics.TotalPresent / attendanceStatistics.TotalClasses) * 100 | number: 1}}%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ion-slide-page>
+        </ion-slides>
+    </ion-content>
+</ion-view>

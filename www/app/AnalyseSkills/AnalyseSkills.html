@@ -1,0 +1,16 @@
+<ion-view title="Analyze Skills">
+    <ion-content>
+        <div id="graph" class="graph-box"></div>
+        <div class="row no-padding" ng-if="barGraphSeries.length == 0">
+            <img class="empty_list_img" src="app/images/analytics.svg" alt="no image selected" />
+            <div class="col no-padding text-center empty_list_text">
+                No test has been conducted yet!
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar-custom button-footer-bar custom-footer" style="padding:0;border:none;" ng-if="barGraphSeries.length != 0">
+        <button style="border-radius:0px;" class="button button-custom loginButton" ng-click="openFilterModal()">
+            <span style="font-size:16px;">Filter</span>
+        </button>
+    </ion-footer-bar>
+</ion-view>

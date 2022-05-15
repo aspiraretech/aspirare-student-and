@@ -1,0 +1,47 @@
+<ion-view class="smart-learning" title="{{topic.Name}}">
+    <div>
+        <div class="smart-learning-content" ng-if="questions.length > 0">
+            <img ng-src="{{currentQuestion.QuestionMediaURL}}" alt="" width="100%" ng-if="currentQuestion.QuestionForm == 'IMAGE'">
+            <iframe ng-if="currentQuestion.QuestionForm == 'VIDEO'" width="100%" height="196" src="{{currentQuestion.QuestionMediaURL}}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="row smart-options no-padding" ng-if="questions.length > 0">
+            <div class="col text-center" ng-click="exitTest()">
+                <img src="app/images/logout.svg" width="25px" alt="">
+                <div class="exp custom">
+                    Exit
+                </div>
+            </div>
+            <div class="col text-center" ng-click="openModal1()" ng-if="!(topic.VideoURL == null && subTopics.length == 0)">
+                <img src="app/images/youtube.svg" width="25px" alt="">
+                <div class="exp custom">
+                    Video
+                </div>
+            </div>
+            <div class="col text-center" ng-click="openPDF(presentationURL[0].MediaURL)" ng-if="presentationURL.length > 0">
+                <img src="app/images/stats.svg" width="25px" alt="">
+                <div class="exp custom">
+                    Presentation
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="slplayer"></div>
+    <ion-content class="smart-learning-ion-content has-footer" ng-if="questions.length > 0">
+        <div class="option-section">
+            <ion-list class="option-list" ng-if="currentQuestion.QuestionType == 'SINGLE'">
+                <ion-radio class="option-item" ng-model="choice" ng-value="'A'" ng-repeat="option in options" ng-click="optionSelected(option, $index)">
+                    {{option.OptionText}}
+                </ion-radio>
+            </ion-list>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer bar-custom" ng-if="questions.length > 0">
+        <button class="button button-clear" ng-click="previousQuestion()" style="font-weight:17px;font-weight:500;" ng-hide="currentIndex == 0">
+            Previous
+        </button>
+        <button class="button button-clear" ng-click="nextQuestion()" style="font-weight:17px;font-weight:500;">
+            <span ng-hide="currentIndex == questions.length-1">Next</span>
+            <span ng-show="currentIndex == questions.length-1">Submit</span>
+        </button>
+    </div>
+</ion-view>

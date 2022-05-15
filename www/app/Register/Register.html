@@ -1,0 +1,48 @@
+<ion-view title="Register">
+    <ion-nav-bar class="bar-custom">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content>
+        <div class="list" style="margin-bottom: 0px;" ng-hide="registrationData">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label custom">FindInbox Id</span>
+                <input type="text" placeholder="FindInbox Id" ng-model="registrationCheck.FindInboxId">
+            </label>
+        </div>
+        <button ng-hide="registrationData" class="button button-custom loginButton" ng-click="checkRegistrationStatus()">Check Status</button>
+        <div class="row" ng-show="registrationData">
+            <div class="col custom">
+                Hello {{registrationData.Name}}, please set a password to finish the registration process.
+            </div>
+        </div>
+        <div class="list" style="margin-bottom: 0px;" ng-show="registrationData">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label custom">Name</span>
+                <input type="text" ng-disabled="true" placeholder="Name" ng-model="registrationData.Name">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label custom">FindInbox Id</span>
+                <input type="text" ng-disabled="true" placeholder="FindInbox Id" ng-model="registrationData.FindInboxId">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label custom">PhoneNumber</span>
+                <input type="text" ng-disabled="true" placeholder="PhoneNumber" ng-model="registrationData.PhoneNumber">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label custom">Password</span>
+                <input type="text" ng-if="showPasswordIsChecked" placeholder="Password" ng-model="registrationData.Password">
+                <input type="password" ng-if="!showPasswordIsChecked" placeholder="Password" ng-model="registrationData.Password">
+            </label>
+            <ion-checkbox ng-model="showPasswordIsChecked">Show password</ion-checkbox>
+            <label class="item text-center">
+                <button class="button button-custom" ng-click="idCardCapture()">Capture Id Card</button>
+            </label>
+        </div>
+        <div class="row" ng-show="registrationData.IdCardImage">
+            <div class="col text-center">
+                <img ng-src="{{registrationData.IdCardImage}}" width="70%" />
+            </div>
+        </div>
+        <button ng-show="registrationData" class="button button-custom loginButton" ng-click="submitRegistration()">Register</button>
+    </ion-content>
+</ion-view>

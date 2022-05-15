@@ -1,0 +1,32 @@
+<ion-view title="Choose concept to learn">
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="getLessonPlan()">
+        </ion-refresher>
+        <ion-list class="collapsible-list" ng-if="chapters.length > 0">
+            <div ng-repeat="chapter in chapters">
+                <ion-item id="item{{chapter.Id}}" class="item-stable" ng-click="toggleChapter(chapter)" ng-class="{active: isChapterShown(chapter)}">
+                    <i class="icon" ng-class="isChapterShown(chapter) ? 'ion-minus' : 'ion-plus'" style="float:left;"></i>
+                    <div style="overflow: hidden; text-overflow: ellipsis;padding-left: 10px;" ng-bind-html="chapter.Name">
+                    </div>
+                </ion-item>
+                <a class="topic-names item item-accordion item-icon-right" ng-show="isChapterShown(chapter)" ng-repeat="topic in chapter.Topics" ng-click="topicSelected(topic, chapter, $parent.$index)" style="padding:10px 16px;">
+                    <div style="white-space:normal;" ng-bind-html="topic.Name">
+                    </div>
+                    <i class="icon ion-chevron-right custom" style="font-size:25px;"></i>
+                </a>
+                <div class="row" ng-show="isChapterShown(chapter)">
+                    <div class="col">
+                        <button class="button button-custom loginButton" ng-click="takeQuiz(chapter)">
+                            Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ion-list>
+        <div class="row" ng-if="chapters.length == 0">
+            <div class="col text-center">
+                No chapters available!
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,10 @@
+<ion-view title="Choose a Skill">
+    <ion-content>
+        <div class="list">
+            <a href class="item item-icon-right" ng-repeat="skill in skills" ng-click="skillSelected(skill)">
+                {{skill.Name}}
+                <i class="icon ion-chevron-right custom"></i>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

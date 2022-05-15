@@ -1,0 +1,86 @@
+<ion-view title="Student Details">
+    <ion-content>
+        <div class="profile-top">
+            <div class="logo-image profile-pic" style="background-image:url({{studentDetails.ProfileImageURL}});margin:auto;" ng-click="showPicture(1)"></div>
+            <div class="text-center profile-name">
+                {{studentDetails.Name}}
+            </div>
+            <div class="text-center" style="color:white; font-weight:bold">
+                <span>FI Id - {{studentDetails.FindInboxId}}</span>
+                <span ng-if="studentDetails.RollNumber != null"> | USN - {{studentDetails.RollNumber}}</span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-divider">
+                Personal Information
+            </div>
+            <div class="item item-icon-left item-button-right">
+                <i class="icon ion-android-calendar custom"></i> {{studentDetails.DateOfBirth | date:'dd/MMM/yyyy'}}
+            </div>
+            <div class="item item-icon-left item-button-right" ng-if="studentDetails.PhoneNumber">
+                <i class="icon ion-ios-telephone custom"></i> {{studentDetails.PhoneNumber}}
+            </div>
+        </div>
+        <div class="card" ng-if="loggedInUser.PackageCode != 'EXTENDED'">
+            <div class="item item-divider">
+                Parents Information
+            </div>
+            <div class="item item-avatar item-button-right" ng-if="studentDetails.FatherName != '' && studentDetails.FatherName != null">
+                <img ng-src="{{studentDetails.FatherImageURL}}" ng-click="showPicture(2)">
+                <h2>{{studentDetails.FatherName}}</h2>
+                <p>{{studentDetails.FatherPhoneNumber || 'N/A'}}</p>
+            </div>
+            <div class="item item-avatar item-button-right" ng-if="studentDetails.MotherName != '' && studentDetails.MotherName != null">
+                <img ng-src="{{studentDetails.MotherImageURL}}" ng-click="showPicture(3)">
+                <h2>{{studentDetails.MotherName}}</h2>
+                <p>{{studentDetails.MotherPhoneNumber || 'N/A'}}</p>
+            </div>
+        </div>
+        <div class="card" ng-if="loggedInUser.PackageCode != 'LM' && books.length > 0">
+            <div class="item item-divider">
+                Books Borrowed
+            </div>
+            <div class="item" href ng-repeat="book in books">
+                <h2>{{book.Name}}</h2>
+                <p>Return Date : {{book.ReturnDate | date: 'dd/MMM/yyyy'}}</p>
+            </div>
+        </div>
+        <div class="card" ng-if="balanceFees > 0">
+            <div class="item item-divider">
+                <div class="row no-padding" style="width:60%; display:inline-block;">
+                    <div class="col no-padding">
+                        Fees Information
+                    </div>
+                </div>
+                <div class="item-note" ng-if="loggedInUser.BankAccountInfo != null">
+                    <i class="icon ion-information-circled custom" style="font-size:18px;" ng-click="showBankInfo()"></i>
+                </div>
+            </div>
+            <ion-list class="collapsible-list">
+                <ion-item style="padding:0px;">
+                    <div class="item">
+                        Fees Balance
+                        <div class="item-note" ng-class="{'assertive':balanceFees > 0, 'balanced':balanceFees == 0}">
+                            <b>{{balanceFees}}</b>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </div>
+        <div class="card" ng-if="loggedInUser.PackageCode != 'EXTENDED'">
+            <div class="item item-divider">
+                Contact Information
+            </div>
+            <div class="item item-icon-left item-button-right">
+                <i class="icon ion-android-person custom"></i>
+                <h2>Institution Contact Number</h2>
+                <p>{{loggedInUser.CollegePhoneNumber || 'N/A'}}</p>
+            </div>
+        </div>
+        <div class="row" ng-if="loggedInUser.PackageCode != 'LM' && loginType == 'student'">
+            <div class="col">
+                <button class="button-custom button loginButton" ng-click="changePassword()">Change Password</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

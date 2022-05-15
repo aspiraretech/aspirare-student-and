@@ -1,0 +1,40 @@
+<ion-view>
+    <div>
+        <div class="smart-learning-content">
+            <img src="app/images/topic_without_video.jpg" alt="" ng-if="(topic.VideoURL == null && subTopics.length == 0)">
+            <img src="app/images/topic_with_video.jpg" alt="" ng-if="topic.VideoURL != null || subTopics.length != 0" ng-click="playVideo(topic.VideoURL)">
+        </div>
+    </div>
+    <ion-content class="smart-ion-content">
+        <div class="row">
+            <div class="col">
+                <h4 style="margin:0px;">{{topic.Name}}</h4>
+            </div>
+        </div>
+        <div class="row smart-options">
+            <div class="col text-center" ng-click="exitTest()">
+                <img src="app/images/logout.svg" width="25px" alt="">
+                <div class="exp custom">
+                    Back
+                </div>
+            </div>
+            <div class="col text-center" ng-click="openPopover($event)" ng-if="presentationURL[0].MediaURL != null || defaultPresentationURL[0].MediaURL != null">
+                <img src="app/images/notes.svg" width="25px" alt="">
+                <div class="exp custom">
+                    Notes
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="subTopics.length > 0">
+            <div class="col">
+                <h4 style="margin-bottom:0px;">Related Videos</h4>
+            </div>
+        </div>
+        <div class="list" ng-if="subTopics.length > 0" style="margin-bottom:0px;">
+            <a class="item item-thumbnail-left" href ng-repeat="subTopic in subTopics" ng-click="playVideo(subTopic.VideoURL)">
+                <img src="app/images/subtopics.jpg">
+                <h3 style="white-space:normal !important;">{{subTopic.Name}}</h3>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

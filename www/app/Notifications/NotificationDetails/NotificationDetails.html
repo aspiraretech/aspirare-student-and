@@ -1,0 +1,19 @@
+<ion-view title="Notification Details">
+    <ion-content>
+        <div class="row no-padding">
+            <div class="col no-padding">
+                <img ng-src="{{notification.ImageURL}}" style="width:100%" ng-if="notification.ImageURL" />
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+                <h2>{{notification.Title}}</h2>
+                <p><i class="icon ion-calendar custom"></i>&nbsp;{{notification.CreatedAt | date: 'dd-MMM'}}</p>
+            </div>
+            <div class="item item-body">
+                <p compile="DescriptionToShow"></p>
+            </div>
+        </div>
+        <iframe ng-if="notification.VideoURL" width="100%" height="202px" src="{{notification.VideoURL}}" frameborder="0" allowfullscreen></iframe>
+    </ion-content>
+</ion-view>

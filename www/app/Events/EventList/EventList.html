@@ -1,0 +1,27 @@
+<ion-view title="News & Events">
+    <ion-header-bar class="bar-light bar-subheader" style="padding: 0px;">
+        <form id="chooseStudent-form4" class="list" style="margin-bottom:0px;width:100%;">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="search" name="search" placeholder="Search" ng-model="search">
+            </label>
+        </form>
+    </ion-header-bar>
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="getAllEvents(currentYear)">
+        </ion-refresher>
+        <div class="list" ng-if="events.length > 0">
+            <a class="item item-icon-right" href ng-repeat="event in events | orderBy: '-CreatedAt' | filter:search" ng-click="eventSelected(event)">
+                <h2>{{event.Name}}</h2>
+                <p>{{event.EventDate | date: 'dd-MMM'}}</p>
+                <i class="icon ion-chevron-right custom"></i>
+            </a>
+        </div>
+        <div class="row no-padding" ng-if="events.length == 0">
+            <img class="empty_list_img" src="app/images/events.svg" alt="no image selected" />
+            <div class="col no-padding text-center empty_list_text">
+                Nothing has been shared yet!
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

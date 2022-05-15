@@ -1,0 +1,14 @@
+.datetimepicker-colon {
+    padding-top: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.datetimepicker-arrows {
+    width: 100%;
+}
+
+.datetimepicker-box-text {
+    text-align: center;
+    border: 1px solid #dddddd !important;
+}

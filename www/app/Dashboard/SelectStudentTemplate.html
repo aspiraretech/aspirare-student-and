@@ -1,0 +1,9 @@
+<ion-popover-view class="collegeDropdown">
+    <ion-content>
+        <div class="list">
+            <a href class="item" ng-repeat="student in students" ng-click="studentSelected(student)">
+                {{student.Name}}
+            </a>
+        </div>
+    </ion-content>
+</ion-popover-view>

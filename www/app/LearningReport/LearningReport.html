@@ -1,0 +1,57 @@
+<ion-view title="{{subject.Nickname}}">
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon ion-arrow-down-b" ng-click="openPopover2($event)"></button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-list class="collapsible-list">
+            <div ng-repeat="chapter in chaptersToShow | orderBy: 'DisplayOrder'">
+                <ion-item id="item{{chapter.Id}}" class="item-stable" ng-click="toggleChapter(chapter)" ng-class="{active: isChapterShown(chapter)}">
+                    <i class="icon" ng-class="isChapterShown(chapter) ? 'ion-minus' : 'ion-plus'" style="float:left;"></i>
+                    <div style="overflow: hidden; text-overflow: ellipsis;width: 80%;float:left;padding-left: 10px;" ng-bind-html="chapter.Name">
+                    </div>
+                    <span ng-if="chapter.ChapterAverage != null" class="item-note">
+                        <span class="item-note google-green" ng-if="chapter.ChapterAverage>=75 && loggedInUser.PackageCode != 'EXTENDED'">
+                            Good
+                        </span>
+                    <span class="item-note google-yellow" ng-if="(chapter.ChapterAverage<75 && chapter.ChapterAverage>=50) && loggedInUser.PackageCode != 'EXTENDED'">
+                            Average
+                        </span>
+                    <span class="item-note google-red" ng-if="chapter.ChapterAverage<50 && loggedInUser.PackageCode != 'EXTENDED'">
+                            Improve
+                        </span>
+                    </span>
+                </ion-item>
+                <div class="topic-names item item-accordion item-icon-right" ng-show="isChapterShown(chapter)" ng-repeat="topic in chapter.Topics" style="padding:10px 16px;">
+                    <div class="row no-padding" ng-click="topicSelected(topic, chapter, $parent.$index)">
+                        <div class="col no-padding col-80" style="white-space: normal;" ng-bind-html="topic.Name">
+                        </div>
+                        <div class="col no-padding col-20 text-center" ng-if="topic.IsCompleted">
+                            <span class="item-note google-green item-keyword" ng-if="topic.TopicAverage>=75">
+                                Good
+                            </span>
+                            <span class="item-note google-yellow item-keyword" ng-if="(topic.TopicAverage<75 && topic.TopicAverage>=50)">
+                                Average
+                            </span>
+                            <span class="item-note google-red item-keyword" ng-if="topic.TopicAverage<50">
+                                Improve
+                            </span>
+                        </div>
+                        <i class="icon ion-chevron-right custom" style="right:-3px; font-size:24px;" ng-if="loggedInUser.PackageCode != 'EXTENDED'"></i>
+                    </div>
+                </div>
+                <div class="row" ng-show="isChapterShown(chapter)" ng-if="chapter.SmartTestCount > 0">
+                    <div class="col">
+                        <button class="button button-custom loginButton" ng-click="takeQuiz(chapter, $index)">
+                            Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="chapters.length == 0">
+                <div class="col text-center">
+                    No chapters available!
+                </div>
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>

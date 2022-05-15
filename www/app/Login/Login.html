@@ -1,0 +1,82 @@
+<ion-view title="Spring Equinoxx">
+    <ion-nav-bar class="bar-custom">
+    </ion-nav-bar>
+    <ion-content class="has-header login-page">
+        <ion-slides slider="slider" options="options" ion-slides-tabs slide-tabs-scrollable="true" show-pager="false">
+            <ion-slide-page ion-slide-tab-label="Student Login" class="loginPageTabs">
+                <div class="list">
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label custom">Phone Number/USN</span>
+                        <input type="text" placeholder="Phone Number/USN" ng-model="loginData.PhoneNumber">
+                    </label>
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label custom">Password</span>
+                        <input type="password" placeholder="Password" ng-model="loginData.Password">
+                    </label>
+                </div>
+                <div class="row text-center" ng-if="errorMessage">
+                    <div class="col assertive" style="font-size:17px;">
+                        {{errorMessage}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="button button-custom loginButton" ng-click="login()">
+                            Login
+                        </button>
+                    </div>
+                </div>
+                <div class="row" ng-if="showUpdateButton">
+                    <div class="col">
+                        <button class="button button-balanced loginButton" ng-click="update()">
+                            Update
+                        </button>
+                    </div>
+                </div>
+                <div class="row" ng-if="errorMessage">
+                    <div class="col text-center">
+                        Contact Faculty to alter login credentials
+                    </div>
+                </div>
+            </ion-slide-page>
+            <ion-slide-page ion-slide-tab-label="Parent Login" class="loginPageTabs">
+                <div class="list">
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label custom">Father's/Mother's Phone Number</span>
+                        <input type="number" placeholder="Father's/Mother's Phone Number" ng-model="parentLoginData.PhoneNumber">
+                    </label>
+                    <div class="item item-button-right custom">
+                        Student DOB
+                        <button class="button button-custom" ng-click="openDatePicker();">
+                            {{parentLoginData.DateOfBirth | date: 'dd-MMM-yyyy'}}
+                        </button>
+                    </div>
+                </div>
+                <div class="row text-center" ng-if="parentErrorMessage">
+                    <div class="col assertive" style="font-size:17px;">
+                        {{parentErrorMessage}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="button button-custom loginButton" ng-click="parentLogin()">
+                            Login
+                        </button>
+                    </div>
+                </div>
+                <div class="row" ng-if="showUpdateButton">
+                    <div class="col">
+                        <button class="button button-balanced loginButton" ng-click="update()">
+                            Update
+                        </button>
+                    </div>
+                </div>
+                <div class="row" ng-if="parentErrorMessage">
+                    <div class="col text-center">
+                        Contact Institution to alter login credentials
+                    </div>
+                </div>
+            </ion-slide-page>
+        </ion-slides>
+    </ion-content>
+</ion-view>

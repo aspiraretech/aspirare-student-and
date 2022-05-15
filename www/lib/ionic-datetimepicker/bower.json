@@ -1,0 +1,31 @@
+{
+  "name": "ionic-datetimepicker",
+  "version": "0.1.0",
+  "authors": [
+    "rajeshwarpatlolla <rajeshwar.patlolla@gmail.com>",
+    "Kate Miháliková <kate@katemihalikova.cz>"
+  ],
+  "description": "A datetime picker component for ionic framework",
+  "main": [
+    "./dist/ionic-datetimepicker.bundle.min.js"
+  ],
+  "keywords": [
+    "ionic-datetimepicker",
+    "ionic",
+    "datetimepicker",
+    "datetimepicker for ionic",
+    "datetimepicker for ionic framework"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/katemihalikova/ionic-datetimepicker",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ionic": ">=0.9.27"
+  }
+}

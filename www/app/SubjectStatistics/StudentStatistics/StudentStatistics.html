@@ -1,0 +1,113 @@
+<ion-view title="{{subject.Name}}">
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="getStudentStats()">
+        </ion-refresher>
+        <div class="row">
+            <div class="col text-center">
+                <div class="row no-padding">
+                    <div class="col no-padding">
+                        <h4>{{keywords.SubjectKeyword}} Performance</h4>
+                    </div>
+                </div>
+                <div ng-if="student.PackageCode != 'LM'" class="current" ng-style="{'color':graph.color}" style="top: 83px; bottom: auto; font-size: 20px;">{{marksStatistics.Average | number: 1}}%</div>
+                <round-progress ng-if="student.PackageCode != 'LM'" max="100" current="marksStatistics.Average" color="{{graph.color}}" bgcolor="#eaeaea" radius="75" stroke="25" semi="false" rounded="false" clockwise="true" responsive="false" duration="1000" animation="easeInOutCirc"
+                    animation-delay="2">
+                </round-progress>
+                <div class="average" ng-if="student.PackageCode == 'LM'">
+                    <average-star-rating ng-model="marksStatistics.Average" max="3">
+                        <average-star-rating>
+                </div>
+                <div class="message" ng-if="student.PackageCode == 'LM' && marksStatistics.Average != undefined">
+                    {{message}}
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-divider" style="padding-left:10px; padding-right:10px;">
+                <div class="row no-padding">
+                    <div class="col no-padding">
+                        {{keywords.SubjectKeyword}} Attendance
+                    </div>
+                    <div class="col no-padding">
+                        <i class="icon ion-chevron-right pull-right custom" ng-click="studentAttendance()" style="padding-left: 10px;font-size: 21px;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="item item-text-wrap" style="padding:0px;">
+                <div class="row">
+                    <div class="col text-center">
+                        <b>Total</b>
+                    </div>
+                    <div class="col text-center">
+                        <b>Attended</b>
+                    </div>
+                    <div class="col text-center">
+                        <b>Percentage</b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        {{attendanceStatistics.TotalClasses}}
+                    </div>
+                    <div class="col text-center">
+                        {{attendanceStatistics.TotalPresent}}
+                    </div>
+                    <div class="col text-center">
+                        <span ng-class="{'google-green':(attendanceStatistics.TotalPresent / attendanceStatistics.TotalClasses)>=0.75, 'google-yellow' :((attendanceStatistics.TotalPresent / attendanceStatistics.TotalClasses)<0.75 && (attendanceStatistics.TotalPresent / attendanceStatistics.TotalClasses)>=0.5), 'google-red': (attendanceStatistics.TotalPresent / attendanceStatistics.TotalClasses)<0.5}">
+                            {{(attendanceStatistics.TotalPresent / attendanceStatistics.TotalClasses) * 100 | number: 1}}%
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card" ng-hide="marksStatistics.Categories.length == 0 && marksStatistics.Tests.length == 0">
+            <div class="item item-divider" style="padding-left:10px; padding-right:10px;">
+                <div class="row no-padding">
+                    <div class="col no-padding">
+                        {{keywords.SubjectKeyword}} Scorecard
+                    </div>
+                </div>
+            </div>
+            <div class="item item-text-wrap" style="padding:0px;" ng-if="marksStatistics.Categories.length != 0">
+                <div class="list" ng-repeat="category in marksStatistics.Categories" style="margin-bottom: 0px;">
+                    <div class="item item-divider" style="padding-left:10px; padding-right:10px;height:37.8px;">
+                        <div style="width: 75%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display: inline-block;">
+                            {{category.CategoryName}}
+                        </div>
+                        <span class="item-note scorecard-note" style="color:#222;">
+                            <span>{{category.CategoryAverage | number: 1}}<span>/</span>{{category.CategoryMaxMarks | number: 1}}</span>
+                        </span>
+                    </div>
+                    <div class="item" ng-repeat="test in category.Tests | orderBy: '-CreatedAt'" style="padding:0px;">
+                        <div class="row">
+                            <div class="col col-80" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                {{test.Name}}
+                            </div>
+                            <div class="col col-20 text-center">
+                                <span class="item-note scorecard-note" ng-class="{'google-green':(test.Marks/test.MaxMarks)>=0.75, 'google-yellow' :((test.Marks/test.MaxMarks)<0.75 && (test.Marks/test.MaxMarks)>=0.5), 'google-red': (test.AverageMarks/test.MaxMarks)<0.5}">
+                                    {{test.Marks | number: 1}}<span>/</span>{{test.MaxMarks | number: 1}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item item-text-wrap" style="padding:0px;" ng-if="marksStatistics.Tests.length != 0">
+                <div class="list">
+                    <div class="item" ng-repeat="test in marksStatistics.Tests | orderBy: '-CreatedAt'" style="padding:0px;">
+                        <div class="row">
+                            <div class="col col-80" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                {{test.Name}}
+                            </div>
+                            <div class="col col-20 text-center">
+                                <span class="item-note scorecard-note" ng-class="{'google-green':(test.Marks/test.MaxMarks)>=0.75, 'google-yellow' :((test.Marks/test.MaxMarks)<0.75 && (test.Marks/test.MaxMarks)>=0.5), 'google-red': (test.AverageMarks/test.MaxMarks)<0.5}">
+                                    {{test.Marks | number: 1}}<span>/</span>{{test.MaxMarks | number: 1}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

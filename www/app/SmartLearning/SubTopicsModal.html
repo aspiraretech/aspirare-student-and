@@ -1,0 +1,18 @@
+<ion-modal-view>
+    <div class="bar bar-header bar-custom">
+        <h1 class="title">Videos</h1>
+        <button class="button button-clear icon ion-close-round smallButtonIcon" ng-click="closeModal1()"></button>
+    </div>
+    <ion-content class="has-header">
+        <div class="list" ng-if="subTopics.length > 0">
+            <a class="item item-thumbnail-left" href ng-click="playVideo(topic.VideoURL)" ng-if="topic.VideoURL != null">
+                <img src="app/images/subtopics.jpg">
+                <h2 style="white-space:normal !important;">{{topic.Name}}</h2>
+            </a>
+            <a class="item item-thumbnail-left" href ng-repeat="subTopic in subTopics" ng-click="playVideo(subTopic.VideoURL)">
+                <img src="app/images/subtopics.jpg">
+                <h2 style="white-space:normal !important;">{{subTopic.Name}}</h2>
+            </a>
+        </div>
+    </ion-content>
+</ion-modal-view>

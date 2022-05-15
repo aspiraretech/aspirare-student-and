@@ -1,0 +1,15 @@
+<ion-modal-view>
+    <div class="bar bar-header bar-custom">
+        <h1 class="title">{{currentSubject.Nickname}} Attendance</h1>
+        <button class="button button-clear icon ion-close-round smallButtonIcon" ng-click="closeAttendanceModal()"></button>
+    </div>
+    <ion-content class="has-header">
+        <div class="item" ng-repeat="att in attendance | orderBy: '-AttendanceDate'">
+            {{att.AttendanceDate | date: 'dd/MMM/yyyy'}}
+            <span class="item-note scorecard-note">
+                    <span class="balanced" ng-show="att.IsPresent == 'true'">Present</span>
+            <span class="assertive" ng-hide="att.IsPresent == 'true'">Absent</span>
+            </span>
+        </div>
+    </ion-content>
+</ion-modal-view>

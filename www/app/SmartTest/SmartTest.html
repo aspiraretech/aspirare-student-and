@@ -1,0 +1,65 @@
+<ion-view class="smart-learning" title="{{topic.Name}}">
+    <ion-content>
+        <div>
+            <div class="smart-learning-content">
+                <div ng-if="currentQuestion.QuestionMediaURL != null">
+                    <img width="100%" ng-src="{{currentQuestion.QuestionMediaURL}}" alt="Browser doesnt support images">
+                </div>
+                <div ng-if="currentQuestion.QuestionText != null" style="display: flex;padding:5px;">
+                    <div style="font-weight: 500; font-size:4vw; font-size: 14px;" ng-bind-html="currentQuestion.QuestionText"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row smart-options">
+            <div class="col text-center" ng-if="isComplete && currentIndex != 0" ng-click="previousQuestion()">
+                <img ng-src="{{icons.previousIcon}}" width="25px" alt="">
+                <div class="exp custom">
+                    <span>Previous</span>
+                </div>
+            </div>
+            <div class="col text-center" ng-click="exitTest()">
+                <img src="app/images/logout.svg" width="25px" alt="">
+                <div class="exp custom">
+                    Exit
+                </div>
+            </div>
+            <div class="col text-center" ng-if="!isComplete && !timeConstraintDisabled">
+                <img ng-src="app/images/timer.svg" width="25px" alt="">
+                <div class="exp custom">
+                    <timer interval="1000" ng-if="currentQuestion.TimeToSolveInSeconds" countdown="currentQuestion.TimeToSolveInSeconds">{{seconds}}s</timer>
+                </div>
+            </div>
+            <div class="col text-center" ng-click="reportQuestion()">
+                <img ng-src="app/images/flag.svg" width="25px" alt="">
+                <div class="exp custom">
+                    Report
+                </div>
+            </div>
+            <div class="col text-center" ng-click="stopTimerAndStoreAnswer()">
+                <img ng-src="{{icons.nextIcon}}" width="25px" alt="">
+                <div class="exp custom">
+                    <span ng-hide="currentIndex == questions.length-1">Next</span>
+                    <span ng-show="currentIndex == questions.length-1 && !isComplete">Submit</span>
+                    <span ng-show="currentIndex == questions.length-1 && isComplete">Done</span>
+                </div>
+            </div>
+        </div>
+        <div class="option-section">
+            <ion-list class="option-list-smart-test" ng-if="currentQuestion.QuestionType == 'SINGLE'">
+                <ion-radio name="itemgroup" class="test-option-item" ng-model="prefilledAnswer" ng-value="option.Id" ng-repeat="option in options" ng-click="optionSelected(option, $index)" ng-disabled="isComplete">
+                    <span ng-bind-html="option.OptionText"></span>
+                </ion-radio>
+            </ion-list>
+        </div>
+        <div class="solution-section" ng-if="currentQuestion.Solution != null && isComplete">
+            <div class="card">
+                <div class="item item-divider">
+                    Solution
+                </div>
+                <div class="item item-text-wrap">
+                    <span ng-bind-html="currentQuestion.Solution"></span>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

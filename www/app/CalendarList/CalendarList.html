@@ -1,0 +1,19 @@
+<ion-view title="Calendar">
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="getAllCalendarEvents()">
+        </ion-refresher>
+        <ion-list can-swipe="false" style="margin-bottom: 0px;" ng-if="calendarEvents.length > 0">
+            <ion-item class="item-text-wrap" ng-repeat="event in calendarEvents | orderBy: 'EventStartDate'" ng-if="canShow(event)">
+                <h2>{{event.EventName}}</h2>
+                <p style="color: #387ef5 !important;" ng-if="isOneDayEvent(event)"><b><i class="icon ion-calendar"></i>&nbsp;&nbsp;{{event.EventStartDate | date: 'dd/MMM/yyyy'}}</b></p>
+                <p style="color: #387ef5 !important;" ng-if="!isOneDayEvent(event)"><b><i class="icon ion-calendar"></i>&nbsp;&nbsp;{{event.EventStartDate | date: 'dd/MMM/yyyy'}}&nbsp;-&nbsp;{{event.EventEndDate | date: 'dd/MMM/yyyy'}}</b></p>
+            </ion-item>
+        </ion-list>
+        <div class="row no-padding" ng-if="calendarEvents.length == 0">
+            <img class="empty_list_img" src="app/images/calendar.svg" alt="no image selected" />
+            <div class="col no-padding text-center empty_list_text">
+                Nothing has been shared yet!
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

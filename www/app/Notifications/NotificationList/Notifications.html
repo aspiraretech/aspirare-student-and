@@ -1,0 +1,15 @@
+<ion-view title="Notifications">
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="getAllNotifications()">
+        </ion-refresher>
+        <div class="list" ng-repeat="d in groupedNotifications | orderBy: orderByDate" style="margin: 0;">
+            <div class="item-divider" style="padding-left: 10px;">
+                {{d[0]}}
+            </div>
+            <a class="item item-icon-right" href ng-repeat="not in d[1] | orderBy: '-CreatedAt'" ng-click="notificationSelected(not)">
+                <h2>{{not.Title}}</h2>
+                <i class="icon ion-chevron-right custom"></i>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

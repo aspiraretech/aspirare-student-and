@@ -1,0 +1,19 @@
+<ion-view title="News or Event Details">
+    <ion-content>
+        <div class="list" style="margin-bottom:0px;">
+            <div class="item">
+                <h2>{{event.Name}}</h2>
+                <p>{{event.CreatedAt | date: 'dd-MMM'}}</p>
+            </div>
+            <div class="item">
+                <h2 style="white-space: normal" ng-if="event.Description != null && event.Description != ''" compile="DescriptionToShow"></h2>
+            </div>
+            <iframe ng-if="event.VideoURL" width="100%" height="202px" src="{{event.VideoURL}}" frameborder="0" allowfullscreen></iframe>
+            <ion-gallery ng-if="event.Images.length > 0" ion-gallery-items="event.Images"></ion-gallery>
+        </div>
+    </ion-content>
+    <ion-floating-menu menu-color="#4a79c9" menu-icon="ion-android-share-alt" menu-open-color="#4a79c9">
+        <ion-floating-item button-color="#4a79c9" icon="ion-android-download" text="Download" click="checkPermission(0)"></ion-floating-item>
+        <ion-floating-item button-color="#4a79c9" icon="ion-android-share-alt" text="Share" click="checkPermission(1)"></ion-floating-item>
+    </ion-floating-menu>
+</ion-view>
