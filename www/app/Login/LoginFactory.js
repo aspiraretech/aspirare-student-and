@@ -84,13 +84,13 @@ angular.module('smartStudentApp').factory('LoginFactory', function($q, $http) {
 
     factory.loginStudent = function(selectedStudent, loginType, loginData) {
         factory.loggedInUser = selectedStudent;
-        factory.loggedInUser.OldPackageCode = factory.loggedInUser.PackageCode;
-        if (factory.loggedInUser.CourseId == 1) { //1 is course id for preschool
-            factory.loggedInUser.OldPackageCode = factory.loggedInUser.PackageCode;
-            factory.loggedInUser.PackageCode = 'LM';
-        } else {
-            factory.loggedInUser.PackageCode = factory.loggedInUser.OldPackageCode;
-        }
+        // factory.loggedInUser.OldPackageCode = factory.loggedInUser.PackageCode;
+        // if (factory.loggedInUser.CourseId == 1) { //1 is course id for preschool
+        //     factory.loggedInUser.OldPackageCode = factory.loggedInUser.PackageCode;
+        //     factory.loggedInUser.PackageCode = 'LM';
+        // } else {
+        //     factory.loggedInUser.PackageCode = factory.loggedInUser.OldPackageCode;
+        // }
         $http.defaults.headers.common['Authorization'] = selectedStudent.Token;
         factory.isAuthenticated = true;
         factory.storeLoginSession(loginType, loginData);
